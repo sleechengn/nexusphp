@@ -1,6 +1,8 @@
 <?php
 require_once('include/bittorrent_announce.php');
 require_once('include/benc.php');
+require_once('debug.php');
+
 dbconn_announce();
 //1. BLOCK ACCESS WITH WEB BROWSERS AND CHEATS!
 $agent = $_SERVER["HTTP_USER_AGENT"];
@@ -220,7 +222,7 @@ else // continue an existing session
 	$downthis = $truedownthis = max(0, $downloaded - $self["downloaded"]);
 	$announcetime = ($self["seeder"] == "yes" ? "seedtime = seedtime + $self[announcetime]" : "leechtime = leechtime + $self[announcetime]");
 	$is_cheater = false;
-	
+
 	if ($cheaterdet_security){
 		if ($az['class'] < $nodetect_security && $self['announcetime'] > 10)
 		{
@@ -365,7 +367,7 @@ else
 	if (mysql_affected_rows())
 	{
 		$updateset[] = ($seeder == "yes" ? "seeders = seeders + 1" : "leechers = leechers + 1");
-		
+
 		$check = @mysql_fetch_row(@sql_query("SELECT COUNT(*) FROM snatched WHERE torrentid = $torrentid AND userid = $userid"));
 		if (!$check['0'])
 			sql_query("INSERT INTO snatched (torrentid, userid, ip, port, uploaded, downloaded, to_go, startdat, last_action) VALUES ($torrentid, $userid, ".sqlesc($ip).", $port, $uploaded, $downloaded, $left, $dt, $dt)") or err("SL Err 4");
@@ -388,5 +390,16 @@ if(count($USERUPDATESET) && $userid)
 {
 	sql_query("UPDATE users SET " . join(",", $USERUPDATESET) . " WHERE id = ".$userid);
 }
+
+debug("-----响应---------");
+debug("ip:" . $ip);
+
+foreach (array("passkey","info_hash","peer_id","event") as $x){
+	debug($x . ":" . $_GET[$x]);
+}
+
+debug("agent:" . $agent);
+debug("response:" . $resp);
+debug("-------------------");
 benc_resp_raw($resp);
 ?>
