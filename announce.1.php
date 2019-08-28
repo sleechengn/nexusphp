@@ -62,16 +62,16 @@ if (!$az) err("Invalid passkey! Re-download the .torrent from $BASEURL");
 $userid = 0+$az['id'];
 
 //3. CHECK IF CLIENT IS ALLOWED
-//$clicheck_res = check_client($peer_id,$agent,$client_familyid);
-//if($clicheck_res){
-//	if ($az['showclienterror'] == 'no')
-//	{
-//		sql_query("UPDATE users SET showclienterror = 'yes' WHERE id = ".sqlesc($userid));
-//		$Cache->delete_value('user_passkey_'.$passkey.'_content');
-//	}
-//	err($clicheck_res);
-//}
-if ($az['showclienterror'] == 'yes'){
+$clicheck_res = check_client($peer_id,$agent,$client_familyid);
+if($clicheck_res){
+	if ($az['showclienterror'] == 'no')
+	{
+		sql_query("UPDATE users SET showclienterror = 'yes' WHERE id = ".sqlesc($userid));
+		$Cache->delete_value('user_passkey_'.$passkey.'_content');
+	}
+	err($clicheck_res);
+}
+elseif ($az['showclienterror'] == 'yes'){
 	$USERUPDATESET[] = "showclienterror = 'no'";
 	$Cache->delete_value('user_passkey_'.$passkey.'_content');
 }

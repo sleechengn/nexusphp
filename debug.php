@@ -1,7 +1,7 @@
 <?php
 
 function debug($v){
-    $enabled_debug = false;
+    $enabled_debug = true;
     $debug_file = "/tmp/php.log";
 
     if($enabled_debug){

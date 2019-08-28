@@ -52,3 +52,15 @@ width:45px;
 height:46px;
 background-position: 0 -184px;
 }
+img.c_sv
+{
+    width:45px;
+    height:46px;
+    background-position: -45px -184px;
+}
+img.c_ed
+{
+    width:45px;
+    height:46px;
+    background-position: 0 -230px;
+}
