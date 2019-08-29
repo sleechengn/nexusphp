@@ -64,3 +64,15 @@ img.c_ed
     height:46px;
     background-position: 0 -230px;
 }
+img.c_sex
+{
+    width:45px;
+    height:46px;
+    background-position: -45px -230px;
+}
+img.c_l
+{
+    width:45px;
+    height:46px;
+    background-position: 0px -276px;
+}
