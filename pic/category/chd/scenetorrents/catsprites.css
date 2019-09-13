@@ -76,3 +76,9 @@ img.c_l
     height:46px;
     background-position: 0px -276px;
 }
+img.c_sft
+{
+    width:45px;
+    height:46px;
+    background-position: -45px -276px;
+}
